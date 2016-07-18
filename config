@@ -118,7 +118,7 @@ bindsym $mod+Shift+0 move container to workspace 10
 
 # automatically start programs on specific workspaces
 assign[window_role="browser"] 1
-assign[class="Steam"] 5
+assign[class="Steam"] 9
 assign[class="jetbrains-idea"] 2
 
 # reload the configuration file
@@ -154,7 +154,10 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# Enable the media buttons
+## Lock the screen
+bindsym Control+Shift+l exec --no-startup-id physlock
+
+## Enable the media buttons
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
@@ -173,7 +176,7 @@ bindsym XF86AudioPause exec --no-startup-id playerctl pause
 bindsym XF86AudioNext exec --no-startup-id playerctl next
 bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
-# Application launching mode
+## Application launching mode
 set $mode_launcher Launch
 bindsym $mod+o mode "$mode_launcher"
 
@@ -195,11 +198,27 @@ bar {
         status_command i3status
 }
 
+# Disable the titlebar
+new_window 1pixel
+
+# Disable focus follow mouse (for the sake of not focusing the parent when a
+# popup changes it's size)
+focus_follows_mouse no
+
 # Override dialogs to force floating windows
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
+
+# The compositor
+exec --no-startup-id compton -b
+
+# The notification daemon
+exec --nos-startup-id dunst
 
 # Startup applications
 exec --no-startup-id nm-applet
 exec intellij-idea-ultimate-edition
 exec google-chrome-stable
+
+# Customized automation scripts
+exec --no-startup-id /home/ali/bin/battery-notifications
