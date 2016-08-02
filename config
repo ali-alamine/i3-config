@@ -120,6 +120,8 @@ bindsym $mod+Shift+0 move container to workspace 10
 assign[window_role="browser"] 1
 assign[class="Steam"] 9
 assign[class="jetbrains-idea"] 2
+assign[class="jetbrains-studio"] 3
+assign[class="qBittorrent"] 9
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -184,6 +186,7 @@ mode "$mode_launcher" {
 	bindsym b exec --no-startup-id blender; mode "default"
 	bindsym c exec google-chrome-stable; mode "default"
 	bindsym f exec nemo; mode "default"
+	bindsym g exec google-chrome-stable --incognito; mode "default"
 	bindsym i exec intellij-idea-ultimate-edition; mode "default"
 	bindsym m exec gnome-system-monitor; mode "default"
 	bindsym s exec steam; mode "default"
@@ -210,15 +213,15 @@ for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
 
 # The compositor
-exec --no-startup-id compton -b
+exec --no-startup-id compton --config /dev/null --backend glx
 
 # The notification daemon
 exec --nos-startup-id dunst
 
 # Startup applications
 exec --no-startup-id nm-applet
-exec intellij-idea-ultimate-edition
 exec google-chrome-stable
+exec qbittorrent
 
 # Customized automation scripts
 exec --no-startup-id /home/ali/bin/battery-notifications
